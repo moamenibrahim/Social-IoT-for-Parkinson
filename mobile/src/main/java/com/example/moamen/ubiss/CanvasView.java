@@ -27,6 +27,7 @@ public class CanvasView extends View {
     private float mX, mY;
     private static final float TOLERANCE = 5;
     Context context;
+    public static double result;
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -90,7 +91,7 @@ public class CanvasView extends View {
             ResultActivity.userResult = (int) (((33000 - userError)/33000)*100);
             Intent intent = new Intent(context, ResultActivity.class);
             disconnectmyoGetResult();
-            context.startActivity(intent);
+            if (ResultActivity.myoResult > 0){context.startActivity(intent);}
             return true;
         }
 
@@ -116,8 +117,10 @@ public class CanvasView extends View {
     private void disconnectmyoGetResult(){
         Connectmyo connectmyoinstance = new Connectmyo();
         //connectmyoinstance.disconnectMyo();
-        double result=connectmyoinstance.Total/connectmyoinstance.count;
-        ResultActivity.myoResult = result;
+        result=connectmyoinstance.Total/connectmyoinstance.count;
+        ResultActivity.myoResult = (int) ( 100 * result);
+        Log.println(Log.INFO, "myoTest", Double.toString(result));
+        Log.println(Log.INFO, "myoTest", Integer.toString(ResultActivity.myoResult));
         connectmyoinstance.Total = 0;
         connectmyoinstance.count = 0;
     }

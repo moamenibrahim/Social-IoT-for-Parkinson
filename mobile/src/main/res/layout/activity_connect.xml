@@ -8,33 +8,45 @@
 
     <ToggleButton
         android:id="@+id/connectBtn"
-        android:layout_width="150dp"
-        android:layout_height="75dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/imageView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="164dp"
+        android:layout_marginBottom="38dp"
+        android:background="#4682B4"
+        android:textColor="#FFFFFF"
         android:textOff="Disconnected"
-        android:textOn="Connected" />
+        android:textOn="Connected"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        app:srcCompat="@drawable/the_arm" />
 
     <TextView
         android:id="@+id/tvCollecting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Collecting data..."
+        android:layout_alignBottom="@+id/connectBtn"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/connectBtn"
-        android:layout_marginTop="30dp"
-        android:visibility="invisible"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+        android:layout_marginBottom="82dp"
+        android:text="Collecting data..."
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:visibility="invisible" />
 
     <ProgressBar
         android:id="@+id/progress"
         style="?android:attr/progressBarStyle"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/tvCollecting"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="152dp"
+        android:layout_marginBottom="27dp"
         android:visibility="invisible" />
 
     <TextView
@@ -44,6 +56,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
+        android:textSize="20dp"
         android:text="Please connect your Myo Band" />
 
 </RelativeLayout>

@@ -12,8 +12,9 @@ import android.widget.TextView;
 public class ResultActivity extends AppCompatActivity {
 
     public static int userResult;
-    public  static  double myoResult;
+    public static int myoResult;
     public TextView textView;
+    public TextView myoTextView;
     private CanvasView canvasView;
 
     @Override
@@ -23,8 +24,10 @@ public class ResultActivity extends AppCompatActivity {
         //canvasView = (CanvasView) findViewById(R.id.canvas);
         textView = (TextView) findViewById(R.id.textView4);
         textView.setText(Integer.toString(userResult));
-        Log.println(Log.INFO, "userErrNew", Float.toString(userResult));
-        Log.println(Log.INFO, "myoErrNew", Double.toString(myoResult));
+        myoTextView = (TextView) findViewById(R.id.textView5);
+        myoTextView.setText(Integer.toString(myoResult));
+        Log.println(Log.INFO, "userErrNew", Integer.toString(userResult));
+        Log.println(Log.INFO, "myoErrNew", Integer.toString(myoResult));
     }
 
     public void saveData(View view) {

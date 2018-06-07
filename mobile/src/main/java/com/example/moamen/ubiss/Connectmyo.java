@@ -143,7 +143,8 @@ protected void onCreate(Bundle savedInstanceState) {
          */
 
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        BluetoothDevice bt = bluetoothAdapter.getRemoteDevice("D9:8A:3C:EC:07:8B");
+        BluetoothDevice bt = bluetoothAdapter.getRemoteDevice("C4:EF:50:4D:29:BD");
+//        BluetoothDevice bt = bluetoothAdapter.getRemoteDevice("D9:8A:3C:EC:07:8B");
 
         myo = new Myo(getApplicationContext(), bt);
         myo.addConnectionListener(Connectmyo.this);

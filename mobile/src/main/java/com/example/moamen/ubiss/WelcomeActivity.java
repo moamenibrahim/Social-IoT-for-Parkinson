@@ -26,5 +26,10 @@ public class WelcomeActivity extends AppCompatActivity{
         }, 4000);
 
     }
+
+    public void getStart(View view) {
+        Intent intent = new Intent(getApplicationContext(), Connectmyo.class);
+        startActivity(intent);
+    }
 }
 
