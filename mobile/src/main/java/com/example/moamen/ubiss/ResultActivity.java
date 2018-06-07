@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class ResultActivity extends AppCompatActivity {
 
     public static float userResult;
+    public  static  double myoResult;
     public TextView textView;
     private CanvasView canvasView;
 
@@ -20,5 +21,6 @@ public class ResultActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView4);
         textView.setText(Float.toString(userResult));
         Log.println(Log.INFO, "userErrNew", Float.toString(userResult));
+        Log.println(Log.INFO, "myoErrNew", Double.toString(myoResult));
     }
 }

@@ -88,6 +88,7 @@ public class CanvasView extends View {
             //Log.println(Log.INFO, "userErr", Float.toString(userError));
             ResultActivity.userResult = userError;
             Intent intent = new Intent(context, ResultActivity.class);
+            disconnectmyoGetResult();
             context.startActivity(intent);
             return true;
         }
@@ -110,4 +111,10 @@ public class CanvasView extends View {
         return true;
     }
 
+    Connectmyo connectmyoinstance = new Connectmyo();
+    private void disconnectmyoGetResult(){
+        connectmyoinstance.disconnectMyo();
+        double result=connectmyoinstance.Total/connectmyoinstance.count;
+        ResultActivity.myoResult = result;
+    }
 }

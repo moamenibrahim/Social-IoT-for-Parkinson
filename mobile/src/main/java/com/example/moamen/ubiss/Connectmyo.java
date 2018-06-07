@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ import eu.darken.myolib.processor.emg.EmgData;
 import eu.darken.myolib.processor.emg.EmgProcessor;
 import eu.darken.myolib.processor.imu.ImuData;
 import eu.darken.myolib.processor.imu.ImuProcessor;
+
+import static java.lang.Math.pow;
 
 public class Connectmyo extends AppCompatActivity implements
         BaseMyo.ConnectionListener,
@@ -47,7 +50,14 @@ private ImuProcessor imuProcessor = null;
 public static final String MYO_TAG = "MYO_TAG";
 public static final String SAMPLE_TAG = "SAMPLE_TAG";
 
-@Override
+String listStringX = "";
+String listStringY = "";
+String listStringZ = "";
+
+public static double Total;
+public static int count;
+
+    @Override
 protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect);
@@ -177,7 +187,7 @@ protected void onCreate(Bundle savedInstanceState) {
         }
 
     // Disconnecting from Myo
-    private void disconnectMyo() {
+    public void disconnectMyo() {
         if (myo != null) {
         //Applying settings to disconnected Myo
         myo.setConnectionSpeed(BaseMyo.ConnectionSpeed.BALANCED);
@@ -200,6 +210,10 @@ protected void onCreate(Bundle savedInstanceState) {
         removeValues();
 
         uiConnected(false);
+
+
+        /// Passing total to score page
+
         }
         });
         }
@@ -248,7 +262,9 @@ protected void onCreate(Bundle savedInstanceState) {
                 myo.writeVibrate(MyoCmds.VibrateType.LONG, null);
             }
         });
-        myo.writeMode(MyoCmds.EmgMode.FILTERED, MyoCmds.ImuMode.RAW, MyoCmds.ClassifierMode.DISABLED, new Myo.MyoCommandCallback() {
+//            myo.writeMode(MyoCmds.EmgMode.FILTERED, MyoCmds.ImuMode.RAW, MyoCmds.ClassifierMode.DISABLED,null);
+
+            myo.writeMode(MyoCmds.EmgMode.FILTERED, MyoCmds.ImuMode.RAW, MyoCmds.ClassifierMode.DISABLED, new Myo.MyoCommandCallback() {
 
             @Override
     public void onCommandDone(Myo myo, MyoMsg msg) {
@@ -302,7 +318,7 @@ protected void onCreate(Bundle savedInstanceState) {
             connectBtn.setChecked(false);
             connectBtn.setEnabled(true);
             connectBtn.setVisibility(View.VISIBLE);
-            //tvCollecting.setVisibility(View.INVISIBLEhttps://zdnet1.cbsistatic.com/hub/i/r/2016/12/01/45afb08f-464f-4a23-80d6-ff6a3335784b/resize/770xauto/224d132d0ecf9fd88d64390a04a7edcc/myo-three.jpg);
+            tvCollecting.setVisibility(View.INVISIBLE);
             progress.setVisibility(View.INVISIBLE);
             }
         } });
@@ -337,26 +353,46 @@ protected void onCreate(Bundle savedInstanceState) {
     public void onNewImuData(ImuData imuData) {
         // Check for Gyro updates twice per second
         if (System.currentTimeMillis() - mLastImuUpdate > 500) {
-        ContentValues gyroData = new ContentValues();
-        gyroData.put("gyroX", imuData.getGyroData()[0]);
-        gyroData.put("gyroY", imuData.getGyroData()[1]);
-        gyroData.put("gyroZ", imuData.getGyroData()[2]);
 
-        ContentValues accData = new ContentValues();
-        accData.put("accX", imuData.getAccelerometerData()[0]);
-        accData.put("accY", imuData.getAccelerometerData()[1]);
-        accData.put("accZ", imuData.getAccelerometerData()[2]);
+            ContentValues gyroData = new ContentValues();
+            ContentValues accData = new ContentValues();
+            ContentValues orData = new ContentValues();
 
-        ContentValues orData = new ContentValues();
-        orData.put("accX", imuData.getOrientationData()[0]);
-        orData.put("accY", imuData.getOrientationData()[1]);
-        orData.put("accZ", imuData.getOrientationData()[2]);
+            gyroData.put("gyroX", imuData.getGyroData()[0]);
+            gyroData.put("gyroY", imuData.getGyroData()[1]);
+            gyroData.put("gyroZ", imuData.getGyroData()[2]);
 
-        Log.d(SAMPLE_TAG, "GYRO SAMPLE: " + gyroData.toString());
-        Log.d(SAMPLE_TAG, "ACC SAMPLE: " + accData.toString());
-        Log.d(SAMPLE_TAG, "ORIENT SAMPLE: " + orData.toString());
+            accData.put("accX", imuData.getAccelerometerData()[0]);
+            accData.put("accY", imuData.getAccelerometerData()[1]);
+            accData.put("accZ", imuData.getAccelerometerData()[2]);
 
-        mLastImuUpdate = System.currentTimeMillis();
+            orData.put("accX", imuData.getOrientationData()[0]);
+            orData.put("accY", imuData.getOrientationData()[1]);
+            orData.put("accZ", imuData.getOrientationData()[2]);
+
+//            Log.d(SAMPLE_TAG, "GYRO SAMPLE: " + gyroData.toString());
+//            Log.d(SAMPLE_TAG, "ACC SAMPLE: " + accData.toString());
+//            Log.d(SAMPLE_TAG, "ORIENT SAMPLE: " + orData.toString());
+
+            mLastImuUpdate = System.currentTimeMillis();
+
+//            accFullData.add(0, Float.toString(mLastEmgUpdate));
+//            accFullData.add(1, Double.toString(imuData.getAccelerometerData()[0]));
+//            accFullData.add(2, Double.toString(imuData.getAccelerometerData()[1]));
+//            accFullData.add(3, Double.toString(imuData.getAccelerometerData()[2]));
+
+            listStringX += imuData.getAccelerometerData()[0] + "\t";
+            listStringY += imuData.getAccelerometerData()[1] + "\t";
+            listStringZ += imuData.getAccelerometerData()[2] + "\t";
+
+            count +=1;
+            Total+=((pow(imuData.getAccelerometerData()[0],2))+(pow(imuData.getAccelerometerData()[1],2))
+                    +(pow(imuData.getAccelerometerData()[2],2)));
+
+            Log.d("count",Integer.toString(count));
+            Log.d("Data time",Float.toString(mLastImuUpdate));
+            Log.d("Full Data",Double.toString(Total));
+
         }
     }
 }
