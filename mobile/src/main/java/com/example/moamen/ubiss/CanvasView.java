@@ -112,10 +112,13 @@ public class CanvasView extends View {
         return true;
     }
 
-    Connectmyo connectmyoinstance = new Connectmyo();
+
     private void disconnectmyoGetResult(){
-        connectmyoinstance.disconnectMyo();
+        Connectmyo connectmyoinstance = new Connectmyo();
+        //connectmyoinstance.disconnectMyo();
         double result=connectmyoinstance.Total/connectmyoinstance.count;
         ResultActivity.myoResult = result;
+        connectmyoinstance.Total = 0;
+        connectmyoinstance.count = 0;
     }
 }

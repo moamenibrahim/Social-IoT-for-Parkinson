@@ -384,14 +384,13 @@ protected void onCreate(Bundle savedInstanceState) {
             listStringX += imuData.getAccelerometerData()[0] + "\t";
             listStringY += imuData.getAccelerometerData()[1] + "\t";
             listStringZ += imuData.getAccelerometerData()[2] + "\t";
+            count += 1;
+            Total += ((pow(imuData.getAccelerometerData()[0], 2)) + (pow(imuData.getAccelerometerData()[1], 2))
+                    + (pow(imuData.getAccelerometerData()[2], 2)));
 
-            count +=1;
-            Total+=((pow(imuData.getAccelerometerData()[0],2))+(pow(imuData.getAccelerometerData()[1],2))
-                    +(pow(imuData.getAccelerometerData()[2],2)));
-
-            Log.d("count",Integer.toString(count));
-            Log.d("Data time",Float.toString(mLastImuUpdate));
-            Log.d("Full Data",Double.toString(Total));
+            Log.d("count", Integer.toString(count));
+            Log.d("Data time", Float.toString(mLastImuUpdate));
+            Log.d("Full Data", Double.toString(Total));
 
         }
     }
