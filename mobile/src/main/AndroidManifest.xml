@@ -22,14 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".TaskActivity">
-
-        </activity>
-        <activity android:name=".Connectmyo">
-
-        </activity>
-
+        <activity android:name=".ResultActivity" />
+        <activity android:name=".TaskActivity"></activity>
+        <activity android:name=".Connectmyo"></activity>
+        <activity android:name=".GraphActivity"></activity>
     </application>
 
 </manifest>

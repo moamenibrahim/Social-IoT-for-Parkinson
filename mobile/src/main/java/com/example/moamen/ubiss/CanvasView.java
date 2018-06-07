@@ -2,6 +2,7 @@ package com.example.moamen.ubiss;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -86,7 +87,7 @@ public class CanvasView extends View {
 
         if(y > ourY) {
             //Log.println(Log.INFO, "userErr", Float.toString(userError));
-            ResultActivity.userResult = userError;
+            ResultActivity.userResult = (int) (((33000 - userError)/33000)*100);
             Intent intent = new Intent(context, ResultActivity.class);
             disconnectmyoGetResult();
             context.startActivity(intent);
