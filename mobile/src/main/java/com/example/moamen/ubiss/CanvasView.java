@@ -1,16 +1,23 @@
 package com.example.moamen.ubiss;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class CanvasView extends View {
+
+    public static int ourX;
+    public static int ourY;
+    public static float userError;
     private Paint mPaint;
     public int width, height;
     private Bitmap mBitmap;
@@ -77,6 +84,14 @@ public class CanvasView extends View {
         float x = event.getX();
         float y = event.getY();
 
+        if(y > ourY) {
+            //Log.println(Log.INFO, "userErr", Float.toString(userError));
+            ResultActivity.userResult = userError;
+            Intent intent = new Intent(context, ResultActivity.class);
+            context.startActivity(intent);
+            return true;
+        }
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startTouch(x, y);
@@ -84,6 +99,7 @@ public class CanvasView extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
                 moveTouch(x, y);
+                userError = userError + Math.abs((float) ourX - x);
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
@@ -93,4 +109,5 @@ public class CanvasView extends View {
         }
         return true;
     }
+
 }
