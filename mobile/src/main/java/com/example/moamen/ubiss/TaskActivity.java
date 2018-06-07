@@ -2,13 +2,14 @@ package com.example.moamen.ubiss;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+
 public class TaskActivity extends AppCompatActivity {
+
     private CanvasView canvasView;
     View view;
     final int[] loc = new int[2];
