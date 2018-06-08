@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import static java.lang.Math.abs;
+
 public class CanvasView extends View {
 
     public static int ourX;
@@ -63,8 +65,8 @@ public class CanvasView extends View {
     }
 
     private void moveTouch(float x, float y) {
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
+        float dx = abs(x - mX);
+        float dy = abs(y - mY);
         if (dx >= TOLERANCE || dy >= TOLERANCE) {
             mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
             mX = x;
@@ -87,8 +89,8 @@ public class CanvasView extends View {
         float y = event.getY();
 
         if(y > ourY) {
-            //Log.println(Log.INFO, "userErr", Float.toString(userError));
-            ResultActivity.userResult = (int) (((33000 - userError)/33000)*100);
+            Log.println(Log.INFO, "userErr", Float.toString(userError));
+            ResultActivity.userResult = abs((int) (((22000 - userError)/22000)*100));
             Intent intent = new Intent(context, ResultActivity.class);
             disconnectmyoGetResult();
             if (ResultActivity.myoResult > 0){context.startActivity(intent);}
@@ -102,7 +104,7 @@ public class CanvasView extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
                 moveTouch(x, y);
-                userError = userError + Math.abs((float) ourX - x);
+                userError = userError + abs((float) ourX - x);
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
@@ -118,7 +120,7 @@ public class CanvasView extends View {
         Connectmyo connectmyoinstance = new Connectmyo();
         //connectmyoinstance.disconnectMyo();
         result=connectmyoinstance.Total/connectmyoinstance.count;
-        ResultActivity.myoResult = (int) ( 100 * result);
+        ResultActivity.myoResult = abs((int) ( 100 * result));
         Log.println(Log.INFO, "myoTest", Double.toString(result));
         Log.println(Log.INFO, "myoTest", Integer.toString(ResultActivity.myoResult));
         connectmyoinstance.Total = 0;
