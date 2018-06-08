@@ -18,8 +18,9 @@ The patient is required to wear the Myo band and draw some simple shapes on the 
 
 Clone the Repository
 As usual, you get started by cloning the project to your local machine:
-
-$ git://github.com/Applicasa/Sample-App---Android.git
+```
+$ git@github.com:moamenibrahim/UBISS18.git
+```
 
 ## Prerequisites
 
@@ -35,7 +36,10 @@ Required Sdk version is 19 to connect to Aware framework
 
 ## References for myo connection
 
+Using myolib an Android library to communicate with Myo devices.
+```
 git@github.com:d4rken/myolib.git
+```
 
 ## Aware framework
 
